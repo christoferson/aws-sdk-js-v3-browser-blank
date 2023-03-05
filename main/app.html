@@ -9,8 +9,20 @@
 
 <body>
 
+<!-- Congnito UserPool Authentication State --->
+
+<div style="font-weight:bold;color:blue;padding-top: 5px;padding-bottom: 5px;;">Cognito UserPool</div>
+<div style="font-weight:normal;color:black; border:5px solid lightgray; padding:5px;margin:5px;">
+<b>Authenticated:</b> <span id="cognito_user_pool_authenticated">-</span> <br/>
+<b>AccessToken:</b> <div id="cognito_user_pool_access_token" style="overflow-wrap: break-word;">-</div><br/>
+<b>IdToken:</b> <div id="cognito_user_pool_id_token" style="overflow-wrap: break-word;">-</div><br/>
+</div>
+
+<!-- Congnito UserPool - Sign In --->
 
 <div style="font-weight:bold;color:blue;padding-top: 5px;padding-bottom: 5px;;">Sign In</div>
+<b>UserId: </b><input type="text" id="sign_in_request_user_id"/>
+<b>Password: </b><input type="text" id="sign_in_request_password"/>
 <button class="btn default button-6" onclick="cognitoSignIn()">Sign In</button> 
 <div id="sign_in_result">
 </div>
