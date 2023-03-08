@@ -16,6 +16,10 @@
 <b>Authenticated:</b> <span id="cognito_user_pool_authenticated">-</span> <br/>
 <b>AccessToken:</b> <div id="cognito_user_pool_access_token" style="overflow-wrap: break-word;">-</div><br/>
 <b>IdToken:</b> <div id="cognito_user_pool_id_token" style="overflow-wrap: break-word;">-</div><br/>
+<b>AccessKeyId:</b> <div id="cognito_identity_pool_access_key_id" style="overflow-wrap: break-word;">-</div><br/>
+<b>SecretKey:</b> <div id="cognito_identity_pool_secret_key" style="overflow-wrap: break-word;">-</div><br/>
+<b>SessionToken:</b> <div id="cognito_identity_pool_session_token" style="overflow-wrap: break-word;">-</div><br/>
+<b>Expiration:</b> <div id="cognito_identity_pool_expiration" style="overflow-wrap: break-word;">-</div><br/>
 </div>
 
 <!-- Congnito UserPool - Sign In --->
@@ -25,6 +29,14 @@
 <b>Password: </b><input type="text" id="sign_in_request_password"/>
 <button class="btn default button-6" onclick="cognitoSignIn()">Sign In</button> 
 <div id="sign_in_result">
+</div>
+
+<!-- Congnito IdentityPool - GetCredentials --->
+
+<div style="font-weight:bold;color:blue;padding-top: 5px;padding-bottom: 5px;;">Get Security Credentials</div>
+
+<button class="btn default button-6" onclick="cognitoGetSecurityCredentials()">Get Credentials</button> 
+<div id="get_security_credentials_result">
 </div>
 
 </body>
