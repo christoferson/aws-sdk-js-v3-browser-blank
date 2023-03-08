@@ -17,10 +17,14 @@ AWS SDK Javascript Version 3 Blank Project
 }
 ```
 
-#### Install AWS SDK Dependencies
+#### Install AWS SDK Dependencies (Cognito)
 
 - npm i @aws-sdk/client-cognito-identity-provider
 - npm i @aws-sdk/client-cognito-identity
+
+#### Install AWS SDK Dependencies
+
+- npm i @aws-sdk/client-s3
 
 #### Build the Project
 
