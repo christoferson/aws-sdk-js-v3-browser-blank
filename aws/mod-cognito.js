@@ -38,18 +38,18 @@ class ModAwsCognito {
     
             console.log(`SignIn: UserId=${request.UserId}`);
     
-            const response = await client.send(cognitoInitiateAuthRequest);
+            const cognitoInitiateAuthResponse = await client.send(cognitoInitiateAuthRequest);
     
-            console.log(response);
-            console.log(response.AuthenticationResult.AccessToken);
-            console.log(response.AuthenticationResult.IdToken);
-            console.log(response.AuthenticationResult.RefreshToken);
+            console.log(cognitoInitiateAuthResponse);
+            console.log(cognitoInitiateAuthResponse.AuthenticationResult.AccessToken);
+            console.log(cognitoInitiateAuthResponse.AuthenticationResult.IdToken);
+            console.log(cognitoInitiateAuthResponse.AuthenticationResult.RefreshToken);
     
             return {
                 Success: true,
-                IdToken: response.AuthenticationResult.IdToken,
-                AccessToken: response.AuthenticationResult.AccessToken,
-                RefreshToken: response.AuthenticationResult.RefreshToken
+                IdToken: cognitoInitiateAuthResponse.AuthenticationResult.IdToken,
+                AccessToken: cognitoInitiateAuthResponse.AuthenticationResult.AccessToken,
+                RefreshToken: cognitoInitiateAuthResponse.AuthenticationResult.RefreshToken
             };
 
         } catch (err) {
