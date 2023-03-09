@@ -30,7 +30,7 @@ class ModAwsCognito {
     
             const client = new CognitoIdentityProviderClient({ region: request.RegionId });
     
-            const command = new InitiateAuthCommand({
+            const cognitoInitiateAuthRequest = new InitiateAuthCommand({
                 AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
                 ClientId: request.ClientId,
                 AuthParameters: { USERNAME: request.UserId, PASSWORD: request.Password }
@@ -38,7 +38,7 @@ class ModAwsCognito {
     
             console.log(`SignIn: UserId=${request.UserId}`);
     
-            const response = await client.send(command);
+            const response = await client.send(cognitoInitiateAuthRequest);
     
             console.log(response);
             console.log(response.AuthenticationResult.AccessToken);
@@ -65,16 +65,17 @@ class ModAwsCognito {
     /**
      * @param request {
      *  RegionId: "RegionId",
-     *  ClientId: "ClientId",
-     *  UserId: "UserId",
-     *  Password: "Password"
+     *  IdentityPoolId: "IdentityPoolId",
+     *  IdentityLoginProviderId: "IdentityLoginProviderId",
+     *  UserPoolIdToken: "UserPoolIdToken"
      * } 
      * @returns response {
      *  Success: true/false,
      *  ErrorMessage: "",
-     *  IdToken: "IdToken",
-     *  AccessToken: "AccessToken",
-     *  RefreshToken: "RefreshToken"
+     *  AccessKeyId: "AccessKeyId",
+     *  SecretKey: "SecretKey",
+     *  SessionToken: "SessionToken",
+     *  Expiration: "Expiration"
      * }
      */
     async GetSecurityCredentials(request) {
