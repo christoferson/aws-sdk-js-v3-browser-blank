@@ -33,9 +33,13 @@ Running build should output webpack bundle main.js in the main folder.
 - npm run build
 
 
+#### Access
 
+file:///C:/codes/aws-sdk-js-v3-browser-blank/main/app.html
 
 
 ### Links
 
 - (npm-install)[https://docs.npmjs.com/cli/v8/commands/npm-install]
+
+- (jwt-token-parser)[https://jwt.io/]

@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "cognito-identity.amazonaws.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "cognito-identity.amazonaws.com:aud": "<CongitoIdentityPoolId>"
+                }
+            }
+        }
+    ]
+}
+
+Trust Policy for Role assigned to User Group. e.g. AdminGroup
+You must ensure that the Role Setting = Role with preferred_role claim in tokens for the Cognito User Pool Identity provider
