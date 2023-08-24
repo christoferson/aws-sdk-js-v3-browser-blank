@@ -5,12 +5,12 @@
   },
   "devDependencies": {
     "path-browserify": "^1.0.1",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.282.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.282.0",
-    "@aws-sdk/client-s3": "^3.282.0"
+    "@aws-sdk/client-cognito-identity": "^3.398.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.398.0",
+    "@aws-sdk/client-s3": "^3.398.0"
   }
 }

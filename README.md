@@ -32,6 +32,43 @@ Running build should output webpack bundle main.js in the main folder.
 
 - npm run build
 
+--------------------------------------------------------------------------
+
+#### Update Dependencies
+
+##### Check NPM Version
+npm -v
+
+##### Update NPM
+npm install -g npm@9.8.1
+
+##### Check installed components
+npm list --depth=0
+
+##### Check Outdated components
+npm outdated
+
+```
+Package                                    Current   Wanted   Latest  Location                                                Depended by
+@aws-sdk/client-cognito-identity           3.282.0  3.398.0  3.398.0  node_modules/@aws-sdk/client-cognito-identity           
+@aws-sdk/client-cognito-identity-provider  3.282.0  3.398.0  3.398.0  node_modules/@aws-sdk/client-cognito-identity-provider  
+@aws-sdk/client-s3                         3.282.0  3.398.0  3.398.0  node_modules/@aws-sdk/client-s3                         
+webpack                                     5.75.0   5.88.2   5.88.2  node_modules/webpack                            
+webpack-cli                                  5.0.1    5.1.4    5.1.4  node_modules/webpack-cli                                
+```
+
+##### Update Components
+npm update
+npm install @aws-sdk/client-cognito-identity@3.398.0
+npm install @aws-sdk/client-cognito-identity-provider@3.398.0
+npm install @aws-sdk/client-s3@3.398.0
+
+npm install webpack@5.88.2 
+npm install webpack-cli@5.1.4
+
+
+
+-----
 
 #### Access
 
