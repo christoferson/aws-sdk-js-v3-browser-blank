@@ -8,6 +8,64 @@ const CognitoUserPoolCredentials = new ModAws.CognitoUserPoolCredentials();
 
 const SecurityCredentials = new ModAws.Credentials();
 
+
+const cognitoSignUp = async () => {
+
+    const viewResultElement = document.getElementById("sign_up_result");
+
+    let SignUpUserId = document.getElementById("sign_up_request_user_id").value;
+    let SignUpUserPassword = document.getElementById("sign_up_request_password").value;
+    let SignUpUserEmail = document.getElementById("sign_up_request_email").value;
+
+    console.log("UserID: " + SignUpUserId);
+    console.log("Password: " + SignUpUserPassword);
+    console.log("Email: " + SignUpUserEmail);
+
+    if (!SignUpUserId) {
+        console.error("CognitoSignUp: UserName is Mandatory.");
+        viewResultElement.innerHTML = "<p style='color:orange'>CognitoSignUp: UserName is Mandatory.</p>";
+        return;
+    }
+
+    if (!SignUpUserPassword) {
+        console.error("CognitoSignUp: Password is Mandatory.");
+        viewResultElement.innerHTML = "<p style='color:orange'>CognitoSignUp: Password is Mandatory.</p>";
+        return;
+    }
+
+    if (!SignUpUserEmail) {
+        console.error("CognitoSignUp: Email is Mandatory.");
+        viewResultElement.innerHTML = "<p style='color:orange'>CognitoSignUp: Email is Mandatory.</p>";
+        return;
+    }
+
+    const modAwsCognito = new ModAwsCognito();
+    const response = await modAwsCognito.SignUp({
+        RegionId: Settings.Cognito.Region,
+        ClientId: Settings.Cognito.ClientId,
+        Username: SignUpUserId,
+        Password: SignUpUserPassword,
+        Email: SignUpUserEmail
+    });
+ 
+    console.log(response);
+
+    if (response.Success) {
+        
+        viewResultElement.innerHTML = "Success: " + "Sub: " + cognitoSignUpResponse.UserSub + " Confirmed?: " + cognitoSignUpResponse.UserConfirmed;
+
+        document.getElementById("cognito_user_pool_authenticated").innerHTML = CognitoUserPoolCredentials.Authenticated;
+        document.getElementById("cognito_user_pool_access_token").innerHTML = CognitoUserPoolCredentials.AccessToken;
+        document.getElementById("cognito_user_pool_id_token").innerHTML = CognitoUserPoolCredentials.IdToken;
+    } else {
+        viewResultElement.innerHTML = `<p style='color:red'>Error: ${response.ErrorMessage}</p>`
+    }
+
+
+};
+
+//TODO: Confirm SignUp
+
 const cognitoSignIn = async () => {
 
     const viewResultElement = document.getElementById("sign_in_result");
@@ -167,6 +225,7 @@ const s3ListBucketObjects = async () => {
 
 };
 
+window.cognitoSignUp = cognitoSignUp;
 window.cognitoSignIn = cognitoSignIn;
 window.cognitoGetSecurityCredentials = cognitoGetSecurityCredentials;
 window.s3ListBucketObjects = s3ListBucketObjects;

@@ -15,11 +15,21 @@
 <div style="font-weight:normal;color:black; border:5px solid lightgray; padding:5px;margin:5px;">
 <b>Authenticated:</b> <span id="cognito_user_pool_authenticated">-</span> <br/>
 <b>AccessToken:</b> <div id="cognito_user_pool_access_token" style="overflow-wrap: break-word;">-</div><br/>
-<b>IdToken:</b> <div id="cognito_user_pool_id_token" style="overflow-wrap: break-word;">-</div><br/>
+<b>IdToken(JWT):</b> <div id="cognito_user_pool_id_token" style="overflow-wrap: break-word;">-</div><br/>
 <b>AccessKeyId:</b> <div id="cognito_identity_pool_access_key_id" style="overflow-wrap: break-word;">-</div><br/>
 <b>SecretKey:</b> <div id="cognito_identity_pool_secret_key" style="overflow-wrap: break-word;">-</div><br/>
 <b>SessionToken:</b> <div id="cognito_identity_pool_session_token" style="overflow-wrap: break-word;">-</div><br/>
 <b>Expiration:</b> <div id="cognito_identity_pool_expiration" style="overflow-wrap: break-word;">-</div><br/>
+</div>
+
+<!-- Congnito UserPool - Sign Up --->
+
+<div style="font-weight:bold;color:blue;padding-top: 5px;padding-bottom: 5px;;">Sign Up</div>
+<b>UserId: </b><input type="text" id="sign_up_request_user_id"/>
+<b>Password: </b><input type="text" id="sign_up_request_password"/>
+<b>Email: </b><input type="text" id="sign_up_request_email"/>
+<button class="btn default button-6" onclick="cognitoSignUp()">Sign Up</button> 
+<div id="sign_up_result">
 </div>
 
 <!-- Congnito UserPool - Sign In --->

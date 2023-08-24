@@ -113,7 +113,7 @@ class ModAwsCognito {
             console.log("Credentials.SecretKey: ", cognitoGetCredentialsResponse.Credentials.SecretKey);
             console.log("Credentials.Expiration: ", cognitoGetCredentialsResponse.Credentials.Expiration);
             console.log("Credentials.SessionToken: ", cognitoGetCredentialsResponse.Credentials.SessionToken);
-    
+            
             return {
                 Success: true,
                 AccessKeyId: cognitoGetCredentialsResponse.Credentials.AccessKeyId,
@@ -150,13 +150,14 @@ class ModAwsCognito {
      */
     async SignUp(request) {
 
-        console.log("ModAwsCognito.SignIn");
+        console.log("ModAwsCognito.SignUp " + request.Username);
 
         try {
 
             const client = new CognitoIdentityProviderClient({ region: request.RegionId });
     
             const cognitoSingUpRequest = new SignUpCommand({
+                //RegionId: request.RegionId,
                 ClientId: request.ClientId,
                 Username: request.Username,
                 Password: request.Password,
@@ -169,11 +170,21 @@ class ModAwsCognito {
     
             console.log(cognitoSignUpResponse);
     
-            document.getElementById("sign_up_result").innerHTML = "Sub: " + cognitoSignUpResponse.UserSub + " Confirmed?: " + cognitoSignUpResponse.UserConfirmed;
+            //document.getElementById("sign_up_result").innerHTML = "Sub: " + cognitoSignUpResponse.UserSub + " Confirmed?: " + cognitoSignUpResponse.UserConfirmed;
     
+            return {
+                Success: true,
+                UserSub: cognitoSignUpResponse.UserSub,   
+                UserConfirmed: cognitoSignUpResponse.UserConfirmed   
+            };
+
         } catch (err) {
             console.log("Error", err);
-            document.getElementById("sign_up_result").innerHTML = "Error: " + err;
+            //document.getElementById("sign_up_result").innerHTML = "Error: " + err;
+            return {
+                 Success: false,
+                 ErrorMessage: err
+            };
         }
 
     }
