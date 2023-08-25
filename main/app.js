@@ -51,12 +51,7 @@ const cognitoSignUp = async () => {
     console.log(response);
 
     if (response.Success) {
-        
         viewResultElement.innerHTML = "Success: " + "Sub: " + cognitoSignUpResponse.UserSub + " Confirmed?: " + cognitoSignUpResponse.UserConfirmed;
-
-        document.getElementById("cognito_user_pool_authenticated").innerHTML = CognitoUserPoolCredentials.Authenticated;
-        document.getElementById("cognito_user_pool_access_token").innerHTML = CognitoUserPoolCredentials.AccessToken;
-        document.getElementById("cognito_user_pool_id_token").innerHTML = CognitoUserPoolCredentials.IdToken;
     } else {
         viewResultElement.innerHTML = `<p style='color:red'>Error: ${response.ErrorMessage}</p>`
     }
@@ -64,7 +59,50 @@ const cognitoSignUp = async () => {
 
 };
 
-//TODO: Confirm SignUp
+
+const cognitoConfirmSignUp = async () => {
+
+    const viewResultElement = document.getElementById("confirm_sign_up_result");
+
+    let SignUpUserId = document.getElementById("confirm_sign_up_request_user_id").value;
+    let SignUpConfirmationCode = document.getElementById("confirm_sign_up_request_confirmation_code").value;
+
+    console.log("UserID: " + SignUpUserId);
+    console.log("ConfirmationCode: " + SignUpConfirmationCode);
+
+    if (!SignUpUserId) {
+        console.error("CognitoConfirmSignUp: UserName is Mandatory.");
+        viewResultElement.innerHTML = "<p style='color:orange'>CognitoConfirmSignUp: UserName is Mandatory.</p>";
+        return;
+    }
+
+    if (!SignUpConfirmationCode) {
+        console.error("CognitoConfirmSignUp: ConfirmationCode is Mandatory.");
+        viewResultElement.innerHTML = "<p style='color:orange'>CognitoConfirmSignUp: ConfirmationCode is Mandatory.</p>";
+        return;
+    }
+
+
+    const modAwsCognito = new ModAwsCognito();
+    const response = await modAwsCognito.ConfirmSignUp({
+        RegionId: Settings.Cognito.Region,
+        ClientId: Settings.Cognito.ClientId,
+        Username: SignUpUserId,
+        ConfirmationCode: SignUpConfirmationCode
+    });
+ 
+    console.log(response);
+
+    if (response.Success) {
+        viewResultElement.innerHTML = "Success: ";
+        //viewResultElement.innerHTML = "Success: " + "Sub: " + cognitoSignUpResponse.UserSub + " Confirmed?: " + cognitoSignUpResponse.UserConfirmed;
+    } else {
+        viewResultElement.innerHTML = `<p style='color:red'>Error: ${response.ErrorMessage}</p>`
+    }
+
+
+};
+
 
 const cognitoSignIn = async () => {
 
@@ -78,17 +116,22 @@ const cognitoSignIn = async () => {
 
     let SignInUserId = document.getElementById("sign_in_request_user_id").value;
     SignInUserId = (SignInUserId)? SignInUserId : Settings.Cognito.UserId;
+    let SignInPassword = document.getElementById("sign_in_request_password").value;
+    SignInPassword = (SignInPassword)? SignInPassword : Settings.Cognito.Password;
 
     console.log(Settings.Cognito.UserPoolId);
     console.log(CognitoUserPoolCredentials.Authenticated);
     console.log(SecurityCredentials.Authenticated);
+
+    console.log("User: " + SignInUserId);
+    console.log("Password: " + SignInPassword);
 
     const modAwsCognito = new ModAwsCognito();
     const response = await modAwsCognito.SignIn({
         RegionId: Settings.Cognito.Region,
         ClientId: Settings.Cognito.ClientId,
         UserId: SignInUserId,
-        Password: Settings.Cognito.Password
+        Password: SignInPassword
     });
  
     console.log(response.Success);
@@ -223,9 +266,15 @@ const s3ListBucketObjects = async () => {
         viewResultElement.innerHTML = `<p style='color:red'>Error: ${response.ErrorMessage}</p>`
     }
 
+    
 };
 
+
+// TOOD: Change Password
+
+
 window.cognitoSignUp = cognitoSignUp;
+window.cognitoConfirmSignUp = cognitoConfirmSignUp;
 window.cognitoSignIn = cognitoSignIn;
 window.cognitoGetSecurityCredentials = cognitoGetSecurityCredentials;
 window.s3ListBucketObjects = s3ListBucketObjects;

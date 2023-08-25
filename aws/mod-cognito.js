@@ -1,6 +1,6 @@
 import { 
     CognitoIdentityProviderClient, AuthFlowType,
-    InitiateAuthCommand, SignUpCommand
+    InitiateAuthCommand, SignUpCommand, ConfirmSignUpCommand
 } from "@aws-sdk/client-cognito-identity-provider";
 
 import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from "@aws-sdk/client-cognito-identity";
@@ -143,9 +143,8 @@ class ModAwsCognito {
      * @returns response {
      *  Success: true/false,
      *  ErrorMessage: "",
-     *  IdToken: "IdToken",
-     *  AccessToken: "AccessToken",
-     *  RefreshToken: "RefreshToken"
+     *  UserSub: "UserSub",
+     *  UserConfirmed: "UserConfirmed"
      * }
      */
     async SignUp(request) {
@@ -156,7 +155,7 @@ class ModAwsCognito {
 
             const client = new CognitoIdentityProviderClient({ region: request.RegionId });
     
-            const cognitoSingUpRequest = new SignUpCommand({
+            const cognitoSignUpRequest = new SignUpCommand({
                 //RegionId: request.RegionId,
                 ClientId: request.ClientId,
                 Username: request.Username,
@@ -164,9 +163,9 @@ class ModAwsCognito {
                 UserAttributes: [{ Name: "email", Value: request.Email }]
             });
     
-            console.log("Sign Up: " + cognitoSingUpRequest);
+            console.log("Sign Up: " + cognitoSignUpRequest);
     
-            const cognitoSignUpResponse = await client.send(cognitoSingUpRequest);
+            const cognitoSignUpResponse = await client.send(cognitoSignUpRequest);
     
             console.log(cognitoSignUpResponse);
     
@@ -188,6 +187,57 @@ class ModAwsCognito {
         }
 
     }
+
+
+        /**
+     * @param request {
+     *  RegionId: "RegionId",
+     *  ClientId: "ClientId",
+     *  Username: "Username",
+     *  Password: "ConfirmationCode"
+     * } 
+     * @returns response {
+     *  Success: true/false,
+     *  ErrorMessage: "",
+     *  IdToken: "IdToken",
+     *  AccessToken: "AccessToken",
+     *  RefreshToken: "RefreshToken"
+     * }
+     */
+    async ConfirmSignUp(request) {
+
+        console.log("ModAwsCognito.ConfirmSignUp " + request.Username);
+
+        try {
+
+            const client = new CognitoIdentityProviderClient({ region: request.RegionId });
+    
+            const cognitoConfirmSignUpRequest = new ConfirmSignUpCommand({
+                ClientId: request.ClientId,
+                Username: request.Username,
+                ConfirmationCode: request.ConfirmationCode
+            });
+    
+            console.log("Confirm Sign Up: " + cognitoConfirmSignUpRequest);
+    
+            const cognitoConfirmSignUpResponse = await client.send(cognitoConfirmSignUpRequest);
+    
+            console.log(cognitoConfirmSignUpResponse);
+            return {
+                Success: true,
+            };
+
+        } catch (err) {
+            console.log("Error", err);
+            return {
+                    Success: false,
+                    ErrorMessage: err
+            };
+        }
+
+    }
 };
+
+
 
 export {ModAwsCognito};
